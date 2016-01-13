@@ -20,6 +20,7 @@ program
       'commit message', 'Updates')
   .option('-t, --dotfiles', 'Include dotfiles')
   .option('-a, --add', 'Only add, and never remove existing files.')
+  .option('-n, --commit-only', 'Commit only (with no push)')
   .parse(process.argv);
 
 ghpages.publish(path.join(process.cwd(), program.dist), {
@@ -30,6 +31,7 @@ ghpages.publish(path.join(process.cwd(), program.dist), {
   message: program.message,
   dotfiles: !!program.dotfiles,
   add: !!program.add,
+  push: !program.commitOnly,
   logger: function(message) {
     process.stderr.write(message + '\n');
   }
